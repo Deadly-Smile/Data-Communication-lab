@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def __nrzl_nrzi__(input_steam):
+def NRZL_NRZI(input_steam):
     # getting datas for NRZ-L
     data_nrz = []
     for i in input_steam:
@@ -28,40 +28,37 @@ def __nrzl_nrzi__(input_steam):
             x = -1
         elif input_steam[i] == 0 and temp == True:
             x = 1
-        x += 3
         data_nrz_i.append(x)
     if data_nrz_i[0] == 0:
-        data_nrz_i[0] = 1 + 3
-    data_nrz_i.append(1 + 3)
-
-    xs = np.repeat(range(len(data_nrz)), 2)
-    ys = np.repeat(data_nrz, 2)
-    # print(xs[1:])
-    # print(ys[:-1])
+        data_nrz_i[0] = 1
+    data_nrz_i.append(1)
 
     # NRZ-L co-ordinates
+    xs = np.repeat(range(len(data_nrz)), 2)
+    ys = np.repeat(data_nrz, 2)
     xs = xs[1:]
     ys = ys[:-1]
 
-    # ------ Initializing in graph -------
-    plt.grid()
-    plt.title("NRZ-L(Blue), NRZ-I(Orange)")
-    plt.xlabel(str(input_steam))
-    plt.ylim(-2, 7)
-    plt.xlim(0, 9)
-
-    # plotting in graph NRZ-L
+    # showing NRZ-L on graph
+    plt.subplot(3, 1, 1)
+    plt.title('NRZ-L')
     plt.plot(xs, ys)
-
-    xs = np.repeat(range(len(data_nrz_i)), 2)
-    ys = np.repeat(data_nrz_i, 2)
+    plt.ylabel('Amplitude')
+    plt.xlabel('Time')
 
     # NRZ-I co-ordinates
+    xs = np.repeat(range(len(data_nrz_i)), 2)
+    ys = np.repeat(data_nrz_i, 2)
     xs = xs[1:]
     ys = ys[:-1]
 
-    # plotting in graph NRZ-I
+    # showing NRZ-L on graph
+    plt.subplot(3, 1, 3)
+    plt.title('NRZ-I')
     plt.plot(xs, ys)
+    plt.ylabel('Amplitude')
+    plt.xlabel('Time')
+
     plt.show()
 
 
@@ -188,7 +185,7 @@ def phase_modulation():
     axs[1].set(ylabel='c(t)')
     axs[1].set_title('Carrier Signal')
     axs[2].plot(t, s_PM, t, message_signal)
-    axs[2].set(ylabel='s_{PM}(t)')
+    axs[2].set(ylabel=str(s_PM) + '(t)')
     axs[2].set_title('PM Signal')
     plt.show()
 
@@ -203,11 +200,11 @@ def __get_input_number__(input_stream):
 
 # --- main code ---
 data = [0, 0, 0, 0, 0, 0, 0, 0]
-# __get_input_number__(data)
-# print("Data in binary format: ", data)
+__get_input_number__(data)
+print("Data in binary format: ", data)
 
-# __nrzl_nrzi__(data)
+NRZL_NRZI(data)
 # phase_shifting(data)
 # amplitude_modulation()
-frequency_modulation()
-phase_modulation()
+# frequency_modulation()
+# phase_modulation()
