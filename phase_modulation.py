@@ -1,32 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# time axis
-ts = np.arange(0, 1, 1 / 1000)
+# Generate carrier signal
+ac=2
+fc = 100 # Carrier frequency
+fs = 200 # Sampling frequency
+t = np.linspace(0, 0.1, fs, endpoint=False)
+carrier = ac*np.sin(2 * np.pi * fc * t)
 
-# carrier signal
-fc = 100
-carrier = np.sin(2 * np.pi * fc * ts)
+# Generate modulating signal
+am = 10
+fm = 50  # Modulating frequency
+modulator = am*np.sin(2 * np.pi * fm * t)
 
-# modulation signal
-fm = 2
-modulation = np.sin(2 * np.pi * fm * ts)
+# Phase modulation
+k = .5  # Modulation index
+phase_modulated = np.sin(2 * np.pi * fc * t + k * modulator)
 
-# phase-modulated signal
-phase_modulated = np.sin(2 * np.pi * fc * ts + np.pi * modulation)
+# Plot signals
+fig, axs = plt.subplots(3)
 
-# Plot the signals
-plt.subplot(3, 1, 1)
-plt.plot(ts, carrier)
-plt.title('Carrier signal')
+axs[0].plot(t, carrier)
+axs[0].set_title("Carrier Signal")
 
-plt.subplot(3, 1, 2)
-plt.plot(ts, modulation)
-plt.title('Modulation signal')
+axs[1].plot(t, modulator)
+axs[1].set_title("Modulating Signal")
 
-plt.subplot(3, 1, 3)
-plt.plot(ts, phase_modulated)
-plt.title('Phase-modulated signal')
+axs[2].plot(t, phase_modulated)
+axs[2].set_title("Phase Modulated Signal")
 
 plt.tight_layout()
 plt.show()

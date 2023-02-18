@@ -18,7 +18,7 @@ plt.ylabel('Amplitude')
 plt.xlabel('Time')
 
 # Carrier signal
-fc = 10
+fc = 100
 yc = pyl.sin(2 * pyl.pi * ts * fc)
 
 # Showing carrier signal
